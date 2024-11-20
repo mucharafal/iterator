@@ -22,8 +22,6 @@ public class App {
                     list.add(end.toEpochMilli() - start.toEpochMilli());
                 }
             }
-            // Instant end = Instant.now();
-            // System.out.println(end.toEpochMilli() - start.toEpochMilli());
         }
         System.out.println(list);
     }
