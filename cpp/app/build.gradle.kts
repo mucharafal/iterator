@@ -17,3 +17,21 @@ plugins {
 application {
     targetMachines.add(machines.macOS.architecture("aarch64"))
 }
+
+tasks.withType(CppCompile::class.java).configureEach {
+    // Define a preprocessor macro for every binary
+    macros.put("NDEBUG", null)
+
+    // Define a compiler options
+    compilerArgs.add("-W3")
+    compilerArgs.add("-std=c++17")
+
+    // Define toolchain-specific compiler options
+    compilerArgs.addAll(toolChain.map { toolChain ->
+        when (toolChain) {
+            is Gcc, is Clang -> listOf("-O2", "-fno-access-control")
+            is VisualCpp -> listOf("/Zi")
+            else -> listOf()
+        }
+    })
+}

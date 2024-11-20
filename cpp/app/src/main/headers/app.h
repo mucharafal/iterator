@@ -10,7 +10,7 @@
 namespace iterator {
     class Greeter {
         public:
-        std::string greeting();
+        void doIterations();
     };
 }
 

@@ -4,14 +4,29 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <chrono>
 #include "app.h"
 
-std::string iterator::Greeter::greeting() {
-    return std::string("Hello, World!");
+int NUMBER_OF_ITERATIONS = 1000000000;
+int WHEN_PRINT = NUMBER_OF_ITERATIONS - 2;
+int NUMBER_OF_REPETITIONS = 10;
+
+void iterator::Greeter::doIterations() {
+    for (int i = 0; i < NUMBER_OF_REPETITIONS; i++) {
+        auto start = std::chrono::system_clock::now();
+        for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
+            int c = j + i;
+            if (c == WHEN_PRINT) {
+                auto end = std::chrono::system_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+                std::cout << duration << std::endl;
+            }
+        }
+    }
 }
 
 int main () {
     iterator::Greeter greeter;
-    std::cout << greeter.greeting() << std::endl;
+    greeter.doIterations();
     return 0;
 }
