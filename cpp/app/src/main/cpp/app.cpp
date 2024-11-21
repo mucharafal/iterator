@@ -13,16 +13,30 @@ int NUMBER_OF_REPETITIONS = 10;
 
 void iterator::Greeter::doIterations() {
     for (int i = 0; i < NUMBER_OF_REPETITIONS; i++) {
-        auto start = std::chrono::system_clock::now();
-        for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
-            int c = j + i;
-            if (c == WHEN_PRINT) {
-                auto end = std::chrono::system_clock::now();
-                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-                std::cout << duration << std::endl;
-            }
+        std::cout << innerLoop(WHEN_PRINT - i) << std::endl;
+        // auto start = std::chrono::system_clock::now();
+        // for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
+        //     if ((j + i) == WHEN_PRINT) {
+        //         auto end = std::chrono::system_clock::now();
+        //         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+        //         std::cout << duration << std::endl;
+        //     }
+        // }
+    }
+}
+
+long iterator::Greeter::innerLoop(int limit) {
+    auto start = std::chrono::system_clock::now();
+    for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
+        if (j == limit) {
+            std::cout << "In" << std::endl;
+            auto end = std::chrono::system_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+            return duration;
         }
     }
+    std::cout << "Out" << std::endl;
+    return 0;
 }
 
 int main () {

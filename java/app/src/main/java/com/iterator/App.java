@@ -10,20 +10,35 @@ import java.util.List;
 public class App {
     private static int NUMBER_OF_ITERATIONS = 1000000000;
     private static int WHEN_PRINT = NUMBER_OF_ITERATIONS - 2;
-    private static int NUMBER_OF_REPETITIONS = 10;
+    private static int NUMBER_OF_REPETITIONS = 100;
     public void doIterations() {
-        List<Long> list = new ArrayList<>();
+        List<Long> list = new ArrayList<>(NUMBER_OF_REPETITIONS);
         for (int i = 0; i < NUMBER_OF_REPETITIONS; i++) {
             Instant start = Instant.now();
             for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
-                int c = j + i;
-                if (c == WHEN_PRINT) {
+                if (j == WHEN_PRINT) {
                     Instant end = Instant.now();
-                    list.add(end.toEpochMilli() - start.toEpochMilli());
+                    long time = end.toEpochMilli() - start.toEpochMilli();
+                    System.out.println(time);
+                    list.add(time);
                 }
             }
+            long time = innerLoop(WHEN_PRINT - i);
+            list.add(time);
+            System.out.println(time);
         }
         System.out.println(list);
+    }
+
+    private long innerLoop(int whenPrint) {
+        Instant start = Instant.now();
+        for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
+            if (j == whenPrint) {
+                Instant end = Instant.now();
+                return end.toEpochMilli() - start.toEpochMilli();  
+            }
+        }
+        return 0L;
     }
 
     public static void main(String[] args) {

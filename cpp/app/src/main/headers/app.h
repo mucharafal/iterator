@@ -11,6 +11,7 @@ namespace iterator {
     class Greeter {
         public:
         void doIterations();
+        long innerLoop(int limit);
     };
 }
 

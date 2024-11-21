@@ -29,7 +29,7 @@ tasks.withType(CppCompile::class.java).configureEach {
     // Define toolchain-specific compiler options
     compilerArgs.addAll(toolChain.map { toolChain ->
         when (toolChain) {
-            is Gcc, is Clang -> listOf("-O2", "-fno-access-control")
+            is Gcc, is Clang -> listOf("-O3", "-fno-access-control")
             is VisualCpp -> listOf("/Zi")
             else -> listOf()
         }
