@@ -16,6 +16,7 @@ plugins {
 // Set the target operating system and architecture for this application
 application {
     targetMachines.add(machines.macOS.architecture("aarch64"))
+    targetMachines.add(machines.linux.architecture("amd64"))
 }
 
 tasks.withType(CppCompile::class.java).configureEach {
@@ -23,7 +24,7 @@ tasks.withType(CppCompile::class.java).configureEach {
     macros.put("NDEBUG", null)
 
     // Define a compiler options
-    compilerArgs.add("-W3")
+    compilerArgs.add("-W")
     compilerArgs.add("-std=c++17")
 
     // Define toolchain-specific compiler options

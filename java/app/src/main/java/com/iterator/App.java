@@ -12,7 +12,8 @@ public class App {
     private static int WHEN_PRINT = NUMBER_OF_ITERATIONS - 2;
     private static int NUMBER_OF_REPETITIONS = 100;
     public void doIterations() {
-        List<Long> list = new ArrayList<>(NUMBER_OF_REPETITIONS);
+        List<Long> inBodyLoopExecutions = new ArrayList<>(NUMBER_OF_REPETITIONS);
+        List<Long> inFunctionLoopExecutions = new ArrayList<>(NUMBER_OF_REPETITIONS);
         for (int i = 0; i < NUMBER_OF_REPETITIONS; i++) {
             Instant start = Instant.now();
             for (int j = 0; j < NUMBER_OF_ITERATIONS; j++) {
@@ -20,14 +21,15 @@ public class App {
                     Instant end = Instant.now();
                     long time = end.toEpochMilli() - start.toEpochMilli();
                     System.out.println(time);
-                    list.add(time);
+                    inBodyLoopExecutions.add(time);
                 }
             }
             long time = innerLoop(WHEN_PRINT - i);
-            list.add(time);
+            inFunctionLoopExecutions.add(time);
             System.out.println(time);
         }
-        System.out.println(list);
+        System.out.println(inBodyLoopExecutions);
+        System.out.println(inFunctionLoopExecutions);
     }
 
     private long innerLoop(int whenPrint) {
